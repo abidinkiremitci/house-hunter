@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  app:
+    image: abidinkiremitci/house-hunter:latest
+    build:
+      context: .
+    container_name: app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/house_hunter
+      - SPRING_DATASOURCE_USERNAME=house_hunter_app
+      - SPRING_DATASOURCE_PASSWORD=p4ssw0rD
+      - SMTP_SERVER_USERNAME=
+      - SMTP_SERVER_PASSWORD=
+    # Mail addresses seperated with comma
+      - MAIL_NOTIFY_RECIPIENTS=
+      - MAIL_NOTIFY_SENDER=
+
+  db:
+    image: 'postgres:14-alpine'
+    container_name: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./deployment/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_DB=house_hunter
+      - POSTGRES_USER=house_hunter_app
+      - POSTGRES_PASSWORD=p4ssw0rD

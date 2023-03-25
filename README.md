@@ -19,6 +19,14 @@ SMTP Mail Server Required to run the services. Check the link how to use GMAIL a
 
 The listes parameter should set as environment variable in the file, `docker-compose.yml`.
 
+## Building Application
+
+```bash
+docker-compose build
+```
+
+
+
 ## Running Services
 
 ```bash

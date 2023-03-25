@@ -29,7 +29,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,8 +55,7 @@ public class HouseHunterService {
         this.mailSenderService = mailSenderService;
     }
 
-    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
-    //@Scheduled(cron = "0 0 * * * ?") // every hour
+    @Scheduled(cron = "#{'${me.oblomov.househunter.period}'}")
     public void scanForNewAdverts() {
         log.info("Scanning for new adverts");
         List<HouseFilterEntity> filters = houseFilterDAO.findAll();
